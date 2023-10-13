@@ -30,7 +30,7 @@ public class Inventory <T extends Item{
            }
     }
        if (!found){
-           throw new ItemNotFoundException ("Item not found ")
+           throw new ItemNotFoundException ("Item not found ");
        }
 
     }
