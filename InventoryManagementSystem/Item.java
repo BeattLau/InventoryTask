@@ -36,4 +36,17 @@ public class Item {
         this.quantity = quantity;
     }
 
+    public class FoodItem extends Item {
+        public FoodItem(int id, String name, int quantity) {
+            super(id, name, quantity);
+        }
+    }
+
+    // ElectronicsItem.java (Subclass)
+    public class ElectronicsItem extends Item {
+        public ElectronicsItem(int id, String name, int quantity) {
+            super(id, name, quantity);
+        }
+
+    }
 }

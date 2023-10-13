@@ -4,43 +4,40 @@ package InventoryManagementSystem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Inventory {
-    private static List<Item> items;
+public class Inventory <T extends Item{
+    private static List<T> items;
 
     public Inventory() {
-        items = new ArrayList<>();
+        this.items = new ArrayList<>();
     }
 
-    public void add(Item item) {
+    public void add(T item) {
         items.add(item);
 
     }
 
-    public static void remove(Item item) {
-        items.remove(item);
+    public static void removeItem(int itemId) throws ItemNotFoundException, InsufficientStockException {
+       boolean found = false;
+       for (T item : items){
+           if (item.getId() == itemId) {
+               if (item.getQuantity()>0){
+                   items.remove(item);
+                   found = true;
+                   break;
+               }else {
+                   throw new InsufficientStockException ("Not eunogh item");
+               }
+           }
     }
+       if (!found){
+           throw new ItemNotFoundException ("Item not found ")
+       }
 
-    public Item search(Item item) throws ItemNotFoundException {
-        int index = items.indexOf(item);
-        if (index < 0) {
-            throw new ItemNotFoundException("Item not found");
-        }
-        return items.get(index);
     }
-
-    public int insufficientStock(Item item) throws ItemNotFoundException, InsufficientStockException {
-        int index = items.indexOf(item);
-        if (index < 0) {
-            throw new ItemNotFoundException("Item not found");
+    public void displayInventory(){
+        for (Item item : items){
+            System.out.println(item);
         }
-
-        int quantity = items.get(index).getQuantity();
-
-        if (quantity <= 0) {
-            throw new InsufficientStockException("Insufficient items in stock");
-        }
-
-        return quantity;
     }
 }
 
